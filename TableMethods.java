@@ -89,7 +89,10 @@ public class TableMethods {
         ResultSet rs = stmt.executeQuery(query);
         ResultSetMetaData rsmd = rs.getMetaData();
         int columnCount = rsmd.getColumnCount();
-        int rowCount = getRowCount(tableName,con);
+        int rowCount = 0;
+        while (rs.next()){
+            rowCount = rs.getInt(1);
+        }
 
 
         String[][] arr = new String[rowCount][columnCount];
