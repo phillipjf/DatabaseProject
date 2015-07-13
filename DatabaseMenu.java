@@ -19,16 +19,31 @@ public class DatabaseMenu{
     public static String databaseName ;
     public static Connection con;
     public static Scanner scan = new Scanner(System.in);
+    public static int loggedIn = 0;
+
 
     public static void main(String[] args) throws Exception{
-        System.out.println("Database Menu");
+        System.out.print("\n\nWelcome the COMP Health. \nPlease ");
+
+        System.out.print("Enter Username: ");
+        username = scan.next();
+        System.out.print("Enter Password: ");
+        password = scan.next();
+        System.out.print("Enter DB Name:  ");
+        databaseName = scan.next();
+        getConnection();
+
         boolean loop = true;
+        
+
         while(loop) {
+            System.out.println("\n\n************************");
             System.out.print("Menu:\nselect one of the following" +
-                    "\n1: Connect to database.\n" +
+                    "\n1: Switch Users\n" +
                     "2: Add Patient\n" +
                     "3: Get Patient Info\n" +
-                    "9: quit\n\n" +
+                    "9: quit\n" +
+                    "************************\n\n" +
                     "Enter: ");
             Scanner scan = new Scanner(System.in);
 
@@ -46,6 +61,7 @@ public class DatabaseMenu{
                 }
                 case 2: {
                     Patient.newPatient(con);
+
                     break;
                 }
                 case 3: {
@@ -57,7 +73,9 @@ public class DatabaseMenu{
                     loop = false;
                 }
             }
-        }
+
+
+        } //end while loop
 
 
     }
@@ -80,9 +98,11 @@ public class DatabaseMenu{
             //connect
             con = DriverManager.getConnection(url+databaseName,username,password);
             System.out.println("Connected");
+            loggedIn = 1;
             return con;
         }
         catch(Exception e){
+            loggedIn = 0;
             System.out.println("Failed");
             System.out.println(e);
         }

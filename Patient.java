@@ -11,6 +11,7 @@ public static Scanner scan = new Scanner(System.in);
     *   newPatient()
     *   adds to patient to patient table
     *   table auto increments pid and assigns it to new patient
+    *	@param Connection
     * ========================================================================*/
     public static void newPatient(Connection con){
         System.out.println("New Patient Entry");
@@ -50,9 +51,12 @@ public static Scanner scan = new Scanner(System.in);
     *   allows you to search the unique indexes of the patient table.
     *   search patient by pid or ssn
     *   prints all patient info.
+    *   @param Connection
     * =======================================================================*/
     public static void getPatient(Connection con) {
-        System.out.println("Get Existing Patients");
+    	System.out.println("*********************************");
+        System.out.println("Search For Existing Patients");
+        System.out.println("*********************************\n\n");
         String tableName = "patient";
 
 
@@ -60,46 +64,76 @@ public static Scanner scan = new Scanner(System.in);
             Statement stmt =con.createStatement();
 
             List<String> columns = TableMethods.getUniqueColumns(tableName,con);
-            System.out.println("Please Select");
+            System.out.println("How would you like to search?\n");
             int i  = 1;
             for(String x : columns){
-                System.out.println(i + ": to search by " + x);
+                System.out.println("Select " + i + ": to search by " + x);
                 i++;
             }
-            System.out.print("ENTER: ");
+            System.out.println("Enter all to display all");
+            System.out.print("\n\nENTER: ");
             String columnNameS = scan.next();
-            int columnNameI = Integer.parseInt(columnNameS)-1;
-            System.out.print("Enter in Patient's " + columns.get(columnNameI).toUpperCase() + ": ");
-            String search = scan.next();
 
-            String query = "SELECT *" +
-                    " FROM " + tableName +
-                    " WHERE " + columns.get(columnNameI) + " = " + search + ";";
-            ResultSet rs = stmt.executeQuery(query);
-
-            //you should know what types of data that is being return.
-            //make in the future we can un hard code this.
-            while(rs.next()){
-                System.out.println("\n\n***********************************");
-                int pid = rs.getInt("pid");
-                String first = rs.getString("first");
-                String last = rs.getString("last");
-                String ssn = rs.getString("ssn");
-                String eContact = rs.getString("eContact");
-                String insurance = rs.getString("insurance");
-                //Display values
-                System.out.println("PID: " + pid);
-                System.out.println("First: " + first);
-                System.out.println("Last: " + last);
-                System.out.println("SSN: " + ssn);
-                System.out.println("Emergency Contact Number: " + eContact);
-                System.out.println("Policy Number: " + insurance);
-                System.out.println("***********************************\n\n");
+            if(columnNameS.equalsIgnoreCase("all")){
+            	getAll(con);
             }
+            else{
+
+	            int columnNameI = Integer.parseInt(columnNameS)-1;
+	            System.out.print("Enter in Patient's " + columns.get(columnNameI).toUpperCase() + ": ");
+	            String search = scan.next();
+
+	            String query = "SELECT *" +
+	                    " FROM " + tableName +
+	                    " WHERE " + columns.get(columnNameI) + " = " + search + ";";
+	            ResultSet rs = stmt.executeQuery(query);
+
+	            //you should know what types of data that is being return.
+	            //make in the future we can un hard code this.
+	            i = 0;
+	            while(rs.next()){
+	                System.out.println("\n\n***********************************");
+	                int pid = rs.getInt("pid");
+	                String first = rs.getString("first");
+	                String last = rs.getString("last");
+	                String ssn = rs.getString("ssn");
+	                String eContact = rs.getString("eContact");
+	                String insurance = rs.getString("insurance");
+	                //Display values
+	                System.out.println("PID: " + pid);
+	                System.out.println("First: " + first);
+	                System.out.println("Last: " + last);
+	                System.out.println("SSN: " + ssn);
+	                System.out.println("Emergency Contact Number: " + eContact);
+	                System.out.println("Policy Number: " + insurance);
+	                System.out.println("***********************************\n\n");
+	            	++i;
+	            }
+
+	            if(i == 0){
+	            	System.out.println("\n\nUnable to find patient\n\n");
+	            }
+
+       	 	} //end else
 
         } catch(Exception e){
             System.out.println("Patient Not Found");
         }
+
+    } //end get patient
+
+    public static void getAll(Connection con) throws SQLException{
+    	String[][] arr = TableMethods.selectAll("patient",con);
+    	ArrayList<String> cNames = TableMethods.getAllColumnNames("patient",con);
+
+    	int rows = arr.length;
+    	System.out.println("*******************************");
+    	for(int i = 0; i < rows ; i++){
+    		System.out.println("\n");
+			for(int c = 0; c < arr[i].length ; i++){
+				System.out.println();
+			}    		
+    	}
 
     }
 
