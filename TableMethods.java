@@ -75,6 +75,37 @@ public class TableMethods {
         return arr;
     }
 
+    /* ========================================================================
+    *    Select Where
+    *    @param String, String[], Connection
+    *    @return String[][] 
+    * =======================================================================*/
+    public static String[][] selectWhere(String tableName, String id, int low, int high, Connection con) throws SQLException{
+        
+        Statement stmt =con.createStatement();
+
+        String query = "SELECT * FROM " + tableName + 
+        " WHERE " + id + ">" + low + " and " + id + " < " + high + ";";
+        ResultSet rs = stmt.executeQuery(query);
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int columnCount = rsmd.getColumnCount();
+        int rowCount = getRowCount(tableName,con);
+
+
+        String[][] arr = new String[rowCount][columnCount];
+
+        int r = 0;
+        
+        while(rs.next()){
+            for(int c = 0 ; c < columnCount ; c++){
+                arr[r][c] = rs.getString(c+1);
+            }
+            ++r;
+        }
+
+        return arr;
+    }
+
 
 
     /* ========================================================================
