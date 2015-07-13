@@ -62,6 +62,11 @@ public class DatabaseMenu{
 
     }
 
+    /** =======================================================================
+    *   get connection
+    *   connection to OIT MySQL database
+    *   @returns Connection
+    *   =======================================================================*/
     public static Connection getConnection() throws Exception{
 
         try{
@@ -85,6 +90,12 @@ public class DatabaseMenu{
         return null;
     }
 
+
+    /* ========================================================================
+    *   newPatient()
+    *   adds to patient to patient table
+    *   table auto increments pid and assigns it to new patient
+    * ========================================================================*/
     public static void newPatient(){
         System.out.println("New Patient Entry Portal");
         try{
@@ -117,6 +128,13 @@ public class DatabaseMenu{
 
     } // END NEW PATIENT
 
+
+    /* ========================================================================
+    *   getPatient()
+    *   allows you to search the unique indexes of the patient table.
+    *   search patient by pid or ssn
+    *   prints all patient info.
+    * =======================================================================*/
     public static void getPatient() {
         System.out.println("Get Existing Patients");
         String tableName = "patient";
@@ -169,6 +187,12 @@ public class DatabaseMenu{
 
     }
 
+
+    /* ========================================================================
+    *   get All returns all column indexes from any given table
+    *   @param String
+    *   @return ArrayList<String>
+    *  ========================================================================*/
     private static ArrayList<String> getAllColumnNames(String tableName) throws SQLException {
         DatabaseMetaData meta = con.getMetaData();
         ArrayList<String> list = new ArrayList<String>();
@@ -180,6 +204,11 @@ public class DatabaseMenu{
         return list;
     }
 
+    /* ========================================================================
+    *   get Unique returns all unique column indexes from any given table
+    *   @param String
+    *   @return ArrayList<String>
+    *  ========================================================================*/
     private static ArrayList<String> getUniqueColumns(String tableName)throws SQLException {
         DatabaseMetaData meta = con.getMetaData();
         ArrayList<String> list = new ArrayList<String>();
