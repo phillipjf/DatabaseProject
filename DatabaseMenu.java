@@ -6,7 +6,7 @@
 //importing everything for now until we know what we don't need
 import java.sql.*;
 import java.util.*;
-
+import java.io.Console;
 //Build path windows  ***************************************************
 //Compile : javac -cp ".;mysql-connector-java-5.1.35-bin.jar;" DatabaseMenu.java
 //Run:		java -cp ".;mysql-connector-java-s.1.35-bin.jar;" DbHelper
@@ -24,11 +24,12 @@ public class DatabaseMenu{
 
     public static void main(String[] args) throws Exception{
         System.out.print("\n\nWelcome the COMP Health. \nPlease ");
-
+        Console console = System.console();
         System.out.print("Enter Username: ");
         username = scan.next();
         System.out.print("Enter Password: ");
-        password = scan.next();
+        char[] passString = console.readPassword();
+        password = new String(passString );
         System.out.print("Enter DB Name:  ");
         databaseName = scan.next();
         getConnection();
@@ -39,9 +40,9 @@ public class DatabaseMenu{
         while(loop) {
             System.out.println("\n\n************************");
             System.out.print("Menu:\nselect one of the following" +
-                    "\n1: Switch Users\n" +
-                    "2: Add Patient\n" +
-                    "3: Get Patient Info\n" +
+                    "\n1: Add Patient\n" +
+                    "2: Get Patient Info\n" +
+                    "3: Add Worker\n" +
                     "9: quit\n" +
                     "************************\n\n" +
                     "Enter: ");
@@ -50,22 +51,25 @@ public class DatabaseMenu{
             int menu = scan.nextInt();
             switch (menu) {
                 case 1: {
-                    System.out.print("Enter Username: ");
-                    username = scan.next();
-                    System.out.print("Enter Password: ");
-                    password = scan.next();
-                    System.out.print("Enter DB Name:  ");
-                    databaseName = scan.next();
+                    Patient.newPatient(con);
                     getConnection();
                     break;
                 }
                 case 2: {
-                    Patient.newPatient(con);
+                     Patient.getPatient(con);
 
                     break;
                 }
                 case 3: {
-                    Patient.getPatient(con);
+                   Worker.newWorker(con);
+                    break;
+                }
+                case 4: {
+                    
+                    break;
+                }
+                case 5: {
+                    
                     break;
                 }
                 case 9: {
