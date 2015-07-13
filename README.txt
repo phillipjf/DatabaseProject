@@ -6,14 +6,16 @@ Connects to users OIT mysql
 
 FILES
 	DatabaseMenu.java
+	Patient.java
+	TableMethods.java
 	mysql-connector-java-5.1.35-bin.jar
 	project.sql  (schemas)
 
 WINDOWS ****************************************************************
 COMPILE: 
-	javac -cp ".;mysql-connector-java-5.1.35-bin.jar;" DatabaseMenu.java
+	javac -cp ".;mysql-connector-java-5.1.35-bin.jar;" DatabaseMenu.java TableMethods.java Patient.java
 
 RUN
-	java -cp ".;mysql-connector-java-5.1.35-bin.jar;" Database Menu.java
+	java -cp ".;mysql-connector-java-5.1.35-bin.jar;" DatabaseMenu TableMethods Patient
 
 *************************************************************************
