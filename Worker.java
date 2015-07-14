@@ -47,11 +47,20 @@ public static Scanner scan = new Scanner(System.in);
 
 		TableMethods.insertAll(con, query);
 
+
+		System.out.println("\n"+first + " " +
+			last + " " +
+			ssn + " " +
+			jobID + " " +
+			globalID + " ");
+
 	} // end new worker
 
 	/*	=======================================================================
 	*	Since global ID is not incremented manually and is set based on
 	*	jobTitle this will find the next available id for a specific job title.
+	*	@params int, Connection
+	*	@return int
 	*	=====================================================================*/
 	public static int getNextID(int category, Connection con) throws SQLException{
 		int globalID = 0;
