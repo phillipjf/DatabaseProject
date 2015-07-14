@@ -23,40 +23,43 @@ public class DatabaseMenu{
 
 
     public static void main(String[] args) throws Exception{
-        System.out.print("\n\nWelcome the COMP Health. \nPlease ");
+        System.out.print("\n\nWelcome the COMP Health. \n");
         Console console = System.console();
-        System.out.print("Enter Username: ");
-        username = scan.next();
-        System.out.print("Enter Password: ");
-        char[] passString = console.readPassword();
-        password = new String(passString );
-        System.out.print("Enter DB Name:  ");
-        databaseName = scan.next();
-        getConnection();
+        
+        //LOG INTO OIT MYSQL
+        while(loggedIn < 1){
+            System.out.print("\nEnter Username: ");
+            username = scan.next();
+            System.out.print("Enter Password: ");
+            char[] passString = console.readPassword();
+            password = new String(passString );
+            System.out.print("Enter DB Name:  ");
+            databaseName = scan.next();
+            getConnection();
+        }
+
+
 
         boolean loop = true;
         
 
         while(loop) {
-            System.out.println("\n\n************************");
+            System.out.println("\n\n*********************************");
             System.out.print("Menu:\nselect one of the following" +
-                    "\n1: Add Patient\n" +
-                    "2: Get Patient Info\n" +
+                    "\n1: Open Patient Menu\n" +
                     "3: Add Worker\n" +
                     "9: quit\n" +
-                    "************************\n\n" +
+                    "*********************************\n\n" +
                     "Enter: ");
             Scanner scan = new Scanner(System.in);
 
             int menu = scan.nextInt();
             switch (menu) {
                 case 1: {
-                    Patient.newPatient(con);
-                    getConnection();
+                    Patient.patientMenu(con);
                     break;
                 }
                 case 2: {
-                     Patient.getPatient(con);
 
                     break;
                 }
