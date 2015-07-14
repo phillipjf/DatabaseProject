@@ -37,9 +37,16 @@ public static Scanner scan = new Scanner(System.in);
 		x = Integer.parseInt(select);
 		jobID = Integer.parseInt(titles[x-1][1]);
 		
-		int max = getNextID(jobID,con);
+		globalID = getNextID(jobID,con);
 
-		
+		System.out.println(globalID + "");
+
+		String query = "INSERT INTO " + tableName + " VALUES (" + 
+			"'" + first + "', " + 
+			"'" + last + "', " + globalID + ", " + ssn + "," + jobID+ ");";
+
+		TableMethods.insertAll(con, query);
+
 	} // end new worker
 
 	/*	=======================================================================

@@ -176,6 +176,15 @@ public class TableMethods {
     }
 
 
+    /* ========================================================================
+    *   insertAll
+    *  ======================================================================*/
+    public static void insertAll(Connection con, String query) throws SQLException{
+        PreparedStatement insert  = con.prepareStatement(query);
+            insert.executeUpdate();
+            insert.close();
+    }
+
 
 
     /*	======================================================================
