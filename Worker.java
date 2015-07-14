@@ -71,7 +71,7 @@ public static Scanner scan = new Scanner(System.in);
 		
 		Statement stmt =con.createStatement();
 		String query = "SELECT max(" + id + ") FROM " + tableName + 
-        " WHERE " + id + ">" + low + " and " + id + " < " + high + ";";
+        " WHERE " + id + ">=" + low + " and " + id + " < " + high + ";";
 
         ResultSet rs = stmt.executeQuery(query);
 
