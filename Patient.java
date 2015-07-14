@@ -6,6 +6,59 @@ import java.util.*;
 public class Patient {
 	
 public static Scanner scan = new Scanner(System.in);
+    public static Connection con;
+
+
+    public static int patientMenu(Connection conIn){
+        con = conIn;
+        int exit  =0 ; 
+
+
+        while(exit < 1){
+
+            System.out.println("\n\n*********************************");
+            System.out.print("Patient Menu:\nselect one of the following" +
+                    "\n1: Add Patient\n" +
+                    "2: Get Patient Info\n" +
+                    "9: return home page \n" +
+                    "*********************************\n\n" +
+                    "Enter: ");
+            Scanner scan = new Scanner(System.in);
+
+            int menu = scan.nextInt();
+            switch (menu) {
+                case 1: {
+                    Patient.newPatient(con);
+                    break;
+                }
+                case 2: {
+                     Patient.getPatient(con);
+
+                    break;
+                }
+                case 3: {
+                    break;
+                }
+                case 4: {
+                    
+                    break;
+                }
+                case 5: {
+                    
+                    break;
+                }
+                case 9: {
+                    exit = 1;
+                    return 1;
+                }
+            }
+
+
+        } //emd while
+        return 0;
+
+    }
+
 
     /* ========================================================================
     *   newPatient()
@@ -14,15 +67,16 @@ public static Scanner scan = new Scanner(System.in);
     *	@param Connection
     * ========================================================================*/
     public static void newPatient(Connection con){
-        System.out.println("New Patient Entry");
+         System.out.println("\n*********************************");
+        System.out.println("New Patient Entry: ");
+         System.out.println("*********************************");
 
-     
 
         try{
    
             String tablename = "patient";
             Scanner scan = new Scanner(System.in);
-            System.out.print("Enter Patient \nFirst Name: ");
+            System.out.print("\nEnter Patient's \nFirst Name: ");
             String fName = scan.next();
             System.out.print("Last Name: ");
             String lName = scan.next();
@@ -37,9 +91,9 @@ public static Scanner scan = new Scanner(System.in);
                     " ( '" +fName +"'," +
                     "'" + lName +"'," +
                     "" + ssn +"," +
-                    "'" + eContact +"'," +
+                    "" + eContact +"," +
                     "'" + policyNum +"');");
-           insert.executeUpdate();
+            insert.executeUpdate();
             insert.close();
 
         }
@@ -58,9 +112,9 @@ public static Scanner scan = new Scanner(System.in);
     *   @param Connection
     * =======================================================================*/
     public static void getPatient(Connection con) {
-        System.out.println("*********************************");
+        System.out.println("\n*********************************");
         System.out.println("Search For Existing Patients");
-        System.out.println("*********************************\n\n");
+        System.out.println("*********************************\n");
         String tableName = "patient";
 
         try{
@@ -124,6 +178,10 @@ public static Scanner scan = new Scanner(System.in);
 
     } //end get patient
 
+
+    /* ===============================================================
+    *   Prints off all patients in the system
+    *  ==============================================================*/
     public static void getAll(Connection con) throws SQLException{
         String[][] arr = TableMethods.selectAll("patient",con);
         ArrayList<String> cNames = TableMethods.getAllColumnNames("patient",con);
@@ -142,6 +200,10 @@ public static Scanner scan = new Scanner(System.in);
 
     } // end getALL
 
+
+    /*
+    *   return column name types
+    */
     public static void columns(Connection con) throws SQLException{
 
              String[] a = TableMethods.getColumnTypeNames("patient",con);

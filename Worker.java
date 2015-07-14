@@ -39,11 +39,21 @@ public static Scanner scan = new Scanner(System.in);
 		
 		globalID = getNextID(jobID,con);
 
+		System.out.println(globalID + "");
+
+		String query = "INSERT INTO " + tableName + " VALUES (" + 
+			"'" + first + "', " + 
+			"'" + last + "', " + globalID + ", " + ssn + "," + jobID+ ");";
+
+		TableMethods.insertAll(con, query);
+
+
 		System.out.println("\n"+first + " " +
 			last + " " +
 			ssn + " " +
 			jobID + " " +
 			globalID + " ");
+
 	} // end new worker
 
 	/*	=======================================================================
