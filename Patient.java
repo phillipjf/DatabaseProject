@@ -16,7 +16,6 @@ public static Scanner scan = new Scanner(System.in);
     public static void newPatient(Connection con){
         System.out.println("New Patient Entry");
 
-     
 
         try{
    
@@ -39,7 +38,7 @@ public static Scanner scan = new Scanner(System.in);
                     "" + ssn +"," +
                     "'" + eContact +"'," +
                     "'" + policyNum +"');");
-           insert.executeUpdate();
+            insert.executeUpdate();
             insert.close();
 
         }
